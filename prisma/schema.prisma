@@ -4,6 +4,10 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
+// To edit the tabel contents easily use 'npx prisma studio'
+
+
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -14,9 +18,61 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
+model Users {
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  name       String
+  password   String
+  createdAt  DateTime  @default(now())
+
+  // 1-many relation
+  posts      Posts[]
+}
+
+model Posts {
+  id          Int         @id @default(autoincrement())
+  posterId    Int
+  poster      Users       @relation(fields: [posterId], references: [id], onDelete: Cascade)
+
+  price       Int
+  semester    Semester
+  bed         Bed
+  bathroom    Bathroom
+  ensuite     Boolean     @default(false)
+  roommates   Int
+  notes       String      @db.Text
+
+  // 1-1 relation (required): FK on Posts
+  locationId  Int         @unique
+  location    Locations   @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@index([posterId])
+}
+
+model Locations {
+  id       Int     @id @default(autoincrement())
+  post     Posts?
+
+  line_1   String
+  line_2   String?
+  town     String
+  city     String
+  county   String
+  eircode  String?
+}
+
+enum Semester {
+  autumn
+  spring
+  summer
+}
+
+enum Bed {
+  single
+  double
+}
+
+enum Bathroom {
+  shared
+  personal
 }
