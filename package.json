@@ -10,7 +10,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "@prisma/client": "^6.16.2",
+    "express": "^4.21.2",
+    "mysql2": "^3.15.0",
+    "prisma": "^6.16.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

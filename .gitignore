@@ -23,5 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
-# Env files for pushing variables to production user cp /dev/null .env.example
+# Env files (keep .env.example tracked)
 .env
+.env.local
+.env.*.local
+
+/src/generated/prisma
