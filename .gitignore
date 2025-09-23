@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Env files for pushing variables to production user cp /dev/null .env.example
+.env
