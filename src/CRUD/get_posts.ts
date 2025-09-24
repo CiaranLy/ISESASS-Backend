@@ -6,7 +6,6 @@ export const getPosts = async (req: Request, res: Response) => {
     const posts = await prisma.posts.findMany({
       select: {
         id: true,
-        posterId: true,
         price: true,
         semester: true,
         bed: true,
@@ -14,6 +13,13 @@ export const getPosts = async (req: Request, res: Response) => {
         ensuite: true,
         roommates: true,
         notes: true,
+        poster: {
+          select: {
+            name: true,
+            email: true,
+            phone: true
+          }
+        },
         location: {
           select: {
             line_1: true,
