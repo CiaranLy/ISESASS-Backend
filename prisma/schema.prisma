@@ -16,6 +16,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Users {
@@ -24,6 +25,7 @@ model Users {
   name       String
   password   String
   createdAt  DateTime  @default(now())
+  phone      String
 
   // 1-many relation
   posts      Posts[]
