@@ -2,9 +2,16 @@ import { prisma } from "../db"
 import { Request, Response } from "express"
 
 export const createUsers = async (req: Request, res: Response) => {
-  const { email, name, password, phone } = req.body
-  const userResponse = await prisma.users.create({
-    data: { email, name, password, phone },
-  })
-  return userResponse
+  try {
+    const { email, name, password, phone } = req.body
+    const userResponse = await prisma.users.create({
+        data: { email, name, password, phone },
+    })
+    return userResponse
+  } catch (error: any) {
+    if (error.code === 'P2002') {
+      return res.status(409).json({ error: 'Email already exists' })
+    }
+    return res.status(500).json({ error: 'Internal server error' })
+  }
 }
