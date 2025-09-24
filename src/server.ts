@@ -2,6 +2,7 @@ import 'dotenv/config'
 import express from 'express'
 import { prisma } from './db'
 import { createUsers } from './CRUD/create_users'
+import { createPosts } from './CRUD/create_posts'
 
 const app = express()
 const port = process.env.PORT ? Number(process.env.PORT) : 3000
@@ -36,9 +37,6 @@ app.post('/users', async (req, res) => {
 })
 
 app.post('/posts', async (req, res) => {
-  const { posterId, price, semester, bed, bathroom, ensuite, roommates, notes, locationId } = req.body
-  const post = await prisma.posts.create({
-    data: { posterId, price, semester, bed, bathroom, ensuite, roommates, notes, locationId },
-  })
+  const post = await createPosts(req, res)
   res.status(201).json(post)
 })
