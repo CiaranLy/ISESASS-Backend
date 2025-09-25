@@ -72,14 +72,7 @@ Web server for hosting a student-made and student-run accommodation sharing plat
   }
   ```
 
-## Data Models
-
-### Enums
-- **Semester**: `autumn`, `spring`, `summer`
-- **Bed**: `single`, `double`
-- **Bathroom**: `shared`, `personal`
-
-### Response Examples
+## Response Examples
 
 **Posts Response:**
 ```json
@@ -110,11 +103,33 @@ Web server for hosting a student-made and student-run accommodation sharing plat
 ]
 ```
 
+## Live API
+
+**Production URL:** `https://isesass-backend-h7wpngcvw-ciaranlys-projects.vercel.app`
+
 ## Setup
 
+### Local Development
 1. Install dependencies: `npm install`
-2. Set up MySQL database and configure `.env`
+2. Set up PostgreSQL database (Supabase) and configure `.env`
 3. Run migrations: `npx prisma migrate dev`
 4. Start server: `npm run dev`
 
 Server runs on `http://localhost:3000`
+
+### Deployment
+- **Platform:** Vercel
+- **Database:** Supabase PostgreSQL
+- **Deploy:** `vercel --prod`
+
+## Database Schema
+
+The application uses PostgreSQL with the following tables:
+- **Users** - User accounts with email, name, password, phone
+- **Posts** - Accommodation listings with pricing, semester, room details
+- **Locations** - Address information for accommodation posts
+
+### Enums
+- **Semester**: `autumn`, `spring`, `summer`
+- **Bed**: `single`, `double`  
+- **Bathroom**: `shared`, `personal`
