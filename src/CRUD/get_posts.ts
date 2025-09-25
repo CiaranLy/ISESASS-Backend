@@ -15,6 +15,7 @@ export const getPosts = async (req: Request, res: Response) => {
         notes: true,
         poster: {
           select: {
+            id: true,
             name: true,
             email: true,
             phone: true

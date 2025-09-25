@@ -10,7 +10,7 @@ export const createPosts = async (req: Request, res: Response) => {
     const addressResponse = await prisma.locations.create({
         data: { post: { connect: { id: postResponse.id } }, line_1, line_2, town, city, county, eircode },
     })
-    return postResponse
+    return res.status(201).json(postResponse)
   } catch (error: any) {
     if (error.code === 'P2002') {
       return res.status(409).json({ error: 'Post already exists' })

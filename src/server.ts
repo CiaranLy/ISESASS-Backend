@@ -6,6 +6,8 @@ import { createPosts } from './CRUD/create_posts'
 import { login } from './CRUD/login'
 import { getPosts } from './CRUD/get_posts'
 import { getUser } from './CRUD/get_user'
+import { deleteUser } from './CRUD/delete_user'
+import { deletePosts } from './CRUD/delete_posts'
 
 const app = express()
 const port = process.env.PORT ? Number(process.env.PORT) : 3000
@@ -17,6 +19,9 @@ app.post('/login', login)
 
 app.get('/posts', getPosts)
 app.get('/user', getUser)
+
+app.delete('/user', deleteUser)
+app.delete('/posts', deletePosts)
 
 app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok' })
