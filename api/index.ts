@@ -19,7 +19,7 @@ app.use(cors({
   origin: [
     'http://localhost:3000',
     'http://localhost:3001', 
-    'https://isesass-frontend-2gmd2zugq-ciaranlys-projects.vercel.app'
+    'https://isesass.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
