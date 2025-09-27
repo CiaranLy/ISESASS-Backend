@@ -36,6 +36,14 @@ app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok' })
 })
 
+// Test CORS endpoint
+app.get('/test-cors', (_req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  res.status(200).json({ message: 'CORS test successful', timestamp: new Date().toISOString() })
+})
+
 app.get('/db/health', async (_req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`
