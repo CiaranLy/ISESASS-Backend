@@ -14,33 +14,28 @@ const prisma = new PrismaClient()
 
 const app = express()
 
-// CORS headers - MUST be first
-app.all('*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-  
-  if (req.method === 'OPTIONS') {
-    res.status(200).end()
-    return
-  }
-  
-  next()
-})
+// Proper CORS configuration
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3001', 
+    'https://isesass-frontend-2gmd2zugq-ciaranlys-projects.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
+}))
 
 app.use(express.json())
 
 // Health checks
 app.get('/health', (_req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
   res.status(200).json({ status: 'ok' })
 })
 
 // Test CORS endpoint
 app.get('/test-cors', (_req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-  res.header('Access-Control-Allow-Headers', 'Content-Type')
   res.status(200).json({ message: 'CORS test successful', timestamp: new Date().toISOString() })
 })
 
@@ -53,41 +48,14 @@ app.get('/db/health', async (_req, res) => {
   }
 })
 
-// API routes with explicit CORS headers
-app.options('/users', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.header('Access-Control-Allow-Headers', 'Content-Type')
-  res.status(200).end()
-})
-app.post('/login', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  login(req, res)
-})
-app.post('/users', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  createUsers(req, res)
-})
-app.get('/user', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  getUser(req, res)
-})
-app.delete('/user', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  deleteUser(req, res)
-})
-app.post('/posts', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  createPosts(req, res)
-})
-app.get('/posts', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  getPosts(req, res)
-})
-app.delete('/posts', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  deletePosts(req, res)
-})
+// API routes
+app.post('/login', login)
+app.post('/users', createUsers)
+app.get('/user', getUser)
+app.delete('/user', deleteUser)
+app.post('/posts', createPosts)
+app.get('/posts', getPosts)
+app.delete('/posts', deletePosts)
 
 app.get('/', (_req, res) => {
   res.status(200).send('ISESASS Node.js server is running')
