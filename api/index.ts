@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import express from 'express'
+import cors from 'cors'
 import { PrismaClient } from '../src/generated/prisma/index.js'
 import { createUsers } from '../src/CRUD/create_users.js'
 import { createPosts } from '../src/CRUD/create_posts.js'
@@ -12,6 +13,15 @@ import { deletePosts } from '../src/CRUD/delete_posts.js'
 const prisma = new PrismaClient()
 
 const app = express()
+
+// CORS configuration
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://isesass.vercel.app/'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
+
 app.use(express.json())
 
 // Health checks
