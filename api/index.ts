@@ -32,6 +32,7 @@ app.use(express.json())
 
 // Health checks
 app.get('/health', (_req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
   res.status(200).json({ status: 'ok' })
 })
 
@@ -44,14 +45,41 @@ app.get('/db/health', async (_req, res) => {
   }
 })
 
-// API routes
-app.post('/login', login)
-app.post('/users', createUsers)
-app.get('/user', getUser)
-app.delete('/user', deleteUser)
-app.post('/posts', createPosts)
-app.get('/posts', getPosts)
-app.delete('/posts', deletePosts)
+// API routes with explicit CORS headers
+app.options('/users', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  res.status(200).end()
+})
+app.post('/login', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  login(req, res)
+})
+app.post('/users', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  createUsers(req, res)
+})
+app.get('/user', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  getUser(req, res)
+})
+app.delete('/user', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  deleteUser(req, res)
+})
+app.post('/posts', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  createPosts(req, res)
+})
+app.get('/posts', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  getPosts(req, res)
+})
+app.delete('/posts', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  deletePosts(req, res)
+})
 
 app.get('/', (_req, res) => {
   res.status(200).send('ISESASS Node.js server is running')
