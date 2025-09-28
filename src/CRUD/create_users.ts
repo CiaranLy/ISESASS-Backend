@@ -9,7 +9,14 @@ export const createUsers = async (req: Request, res: Response) => {
     const userResponse = await prisma.users.create({
         data: { email, name, password, phone },
     })
-    return res.status(201)
+    const userData = {
+        id: userResponse.id,
+        email: userResponse.email,
+        name: userResponse.name,
+        createdAt: userResponse.createdAt,
+        phone: userResponse.phone,
+    }
+    return res.status(201).json(userData)
   } catch (error: any) {
     if (error.code === 'P2002') {
       return res.status(409).json({ error: 'Email already exists' })

@@ -9,7 +9,7 @@ export const createPosts = async (req: Request, res: Response) => {
     const postResponse = await prisma.posts.create({
         data: { poster: { connect: { id: posterId } }, price, semester, bed, bathroom, ensuite, roommates, notes, location: { create: { line_1, line_2, line_3, city, county, eircode } } },
     })
-    return res.status(201)
+    return res.status(201).json(postResponse)
   } catch (error: any) {
     if (error.code === 'P2002') {
       return res.status(409).json({ error: 'Post already exists' })
