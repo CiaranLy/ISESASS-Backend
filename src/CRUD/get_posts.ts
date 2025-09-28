@@ -27,7 +27,7 @@ export const getPosts = async (req: Request, res: Response) => {
           select: {
             line_1: true,
             line_2: true,
-            town: true,
+            line_3: true,
             city: true,
             county: true,
             eircode: true
