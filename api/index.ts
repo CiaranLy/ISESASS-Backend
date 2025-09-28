@@ -31,7 +31,7 @@ app.use(express.json())
 
 // Health checks
 app.get('/health', (_req, res) => {
-  res.status(200).json({ status: 'ok', schema: 'updated' })
+  res.status(200).json({ status: 'ok', schema: 'updated', version: '2.0' })
 })
 
 // Test CORS endpoint
