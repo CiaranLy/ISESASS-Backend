@@ -56,7 +56,7 @@ model Locations {
 
   line_1   String
   line_2   String?
-  town     String
+  line_3   String
   city     String
   county   String
   eircode  String?

@@ -5,9 +5,9 @@ const prisma = new PrismaClient()
 
 export const createPosts = async (req: Request, res: Response) => {
   try {
-    const { posterId, price, semester, bed, bathroom, ensuite, roommates, notes, line_1, line_2, town, city, county, eircode } = req.body
+    const { posterId, price, semester, bed, bathroom, ensuite, roommates, notes, line_1, line_2, line_3, city, county, eircode } = req.body
     const postResponse = await prisma.posts.create({
-        data: { poster: { connect: { id: posterId } }, price, semester, bed, bathroom, ensuite, roommates, notes, location: { create: { line_1, line_2, town, city, county, eircode } } },
+        data: { poster: { connect: { id: posterId } }, price, semester, bed, bathroom, ensuite, roommates, notes, location: { create: { line_1, line_2, line_3, city, county, eircode } } },
     })
     return res.status(201)
   } catch (error: any) {
