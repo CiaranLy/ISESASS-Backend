@@ -54,7 +54,7 @@ model Locations {
   id       Int     @id @default(autoincrement())
   post     Posts?
 
-  line_1   String
+  line_1   String?
   line_2   String?
   line_3   String
   city     String
