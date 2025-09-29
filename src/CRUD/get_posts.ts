@@ -35,7 +35,7 @@ export const getPosts = async (req: Request, res: Response) => {
         }
       }
     })
-    res.status(200).json(posts)
+    res.status(200).json({ posts: posts })
   } catch (error: any) {
     return res.status(500).json({ error: 'Internal server error' })
   }
