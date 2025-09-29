@@ -12,6 +12,7 @@ export const createPosts = async (req: Request, res: Response) => {
     })
     return res.status(201).json(postResponse)
   } catch (error: any) {
+    console.log(error)
     if (error.code === 'P2002') {
       return res.status(409).json({ error: 'Post already exists' })
     }
