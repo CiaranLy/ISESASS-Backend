@@ -9,6 +9,7 @@ import { getPosts } from '../src/CRUD/get_posts.js'
 import { getUser } from '../src/CRUD/get_user.js'
 import { deleteUser } from '../src/CRUD/delete_user.js'
 import { deletePosts } from '../src/CRUD/delete_posts.js'
+import { updatePosts } from '../src/CRUD/update_posts.js'
 
 const prisma = new PrismaClient()
 
@@ -56,6 +57,7 @@ app.delete('/user', deleteUser)
 app.post('/posts', createPosts)
 app.get('/posts', getPosts)
 app.delete('/posts', deletePosts)
+app.put('/posts', updatePosts)
 
 app.get('/', (_req, res) => {
   res.status(200).send('ISESASS Node.js server is running')
