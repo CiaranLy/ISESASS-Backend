@@ -43,6 +43,11 @@ model Posts {
   roommates   Int
   notes       String      @db.Text
 
+
+  // Many-to-many relation : interested users
+  interestedUsers PostInterest[]
+
+
   // 1-1 relation (required): FK on Posts
   locationId  Int         @unique
   location    Locations   @relation(fields: [locationId], references: [id], onDelete: Cascade)
@@ -60,6 +65,18 @@ model Locations {
   city     String
   county   String
   eircode  String?
+}
+
+model PostInterest {
+  id        Int     @id @default(autoincrement())
+  postId    Int
+  userId    Int
+  userName  String
+  createdAt DateTime @default(now())
+  
+  post      Posts   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  
+  @@unique([postId, userId]) // Prevent duplicate interests
 }
 
 enum Semester {
