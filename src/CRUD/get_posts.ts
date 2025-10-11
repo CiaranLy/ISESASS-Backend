@@ -32,10 +32,16 @@ export const getPosts = async (req: Request, res: Response) => {
             county: true,
             eircode: true
           }
+        },
+        interestedUsers: {
+          select: {
+            userName: true,
+            postId: true
+          }
         }
       }
     })
-    res.status(200).json({ posts: posts })
+    return res.status(200).json({ posts: posts })
   } catch (error: any) {
     return res.status(500).json({ error: 'Internal server error' })
   }
