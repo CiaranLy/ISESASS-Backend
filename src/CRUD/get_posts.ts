@@ -36,6 +36,7 @@ export const getPosts = async (req: Request, res: Response) => {
         interestedUsers: {
           select: {
             userName: true,
+            userPhone: true,
           }
         }
       }

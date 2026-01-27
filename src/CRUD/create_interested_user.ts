@@ -5,9 +5,9 @@ const prisma = new PrismaClient()
 
 export const createInterestedUser = async (req: Request, res: Response) => {
   try {
-    const { postId, userId, userName } = req.body
+    const { postId, userId, userName, userPhone } = req.body
     const interestedUser = await prisma.postInterest.create({
-        data: { postId, userId, userName }
+        data: { postId, userId, userName, userPhone }
     })
     return res.status(201).json(interestedUser)
   } catch (error: any) {

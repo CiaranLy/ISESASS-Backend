@@ -72,6 +72,7 @@ model PostInterest {
   postId    Int
   userId    Int
   userName  String
+  userPhone String?
   createdAt DateTime @default(now())
   
   post      Posts   @relation(fields: [postId], references: [id], onDelete: Cascade)
